@@ -2,6 +2,9 @@
   display: flex;
   gap: 15px;
   font-weight: 600;
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
 }
 .uv-index {
   margin-left: auto;

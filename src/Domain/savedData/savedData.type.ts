@@ -1,3 +1,3 @@
 export interface ISavedData {
-  data: unknown[];
+  data: { lat: number; lng: number; name: string }[];
 }
