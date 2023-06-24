@@ -1,3 +1,11 @@
 .container {
   background-image: linear-gradient(to right, #15487a, #4a9caa, #a8e4ec);
+
+  padding: 60px 36px;
+}
+.main-weather {
+  margin-bottom: 36px;
+}
+.forecast {
+  margin-bottom: 12px;
 }

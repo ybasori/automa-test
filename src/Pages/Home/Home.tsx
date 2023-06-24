@@ -9,15 +9,19 @@ import Sun from "../../Components/Atoms/Sun/Sun";
 const Home: React.FC = () => {
   return (
     <div className={styles["container"]}>
-      <MainWeather
-        temperatureOne={12}
-        temperatureTwo={9}
-        temperatureThree={22}
-        temperatureFour={11}
-        title={"Sunny"}
-        icon={<Sun />}
-      />
-      <WeatherForecast wind={29} rain={6.33} storm={20} uv={3} />
+      <div className={styles["main-weather"]}>
+        <MainWeather
+          temperatureOne={12}
+          temperatureTwo={9}
+          temperatureThree={22}
+          temperatureFour={11}
+          title={"Sunny"}
+          icon={<Sun />}
+        />
+      </div>
+      <div className={styles["forecast"]}>
+        <WeatherForecast wind={29} rain={6.33} storm={20} uv={3} />
+      </div>
       <ListWeather
         data={[
           {
