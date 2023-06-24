@@ -1,12 +1,26 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
 import cityReducer from "./Domain/city/city.reducer";
 import weatherReducer from "./Domain/weather/weather.reducer";
+import savedDataReducer from "./Domain/savedData/savedData.reducer";
+
+const reducers = combineReducers({
+  city: cityReducer,
+  weather: weatherReducer,
+  savedData: savedDataReducer,
+});
+
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["savedData"],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
-  reducer: {
-    city: cityReducer,
-    weather: weatherReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
