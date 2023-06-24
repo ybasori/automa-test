@@ -1,5 +1,10 @@
 export interface IWeather {
   weather: {
+    coord: {
+      lon: number;
+      lat: number;
+    };
+    name: string;
     main: {
       temp: number;
       temp_min: number;

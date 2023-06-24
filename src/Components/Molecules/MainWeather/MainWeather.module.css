@@ -58,3 +58,8 @@
   text-align: center;
   font-weight: 600;
 }
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,3 +1,5 @@
+import { IItemCity } from "../city/city.type";
+
 export interface ISavedData {
-  data: { lat: number; lng: number; name: string }[];
+  data: IItemCity[];
 }

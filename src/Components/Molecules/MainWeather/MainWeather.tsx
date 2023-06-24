@@ -1,5 +1,9 @@
 import React from "react";
 import styles from "./MainWeather.module.css";
+import Button from "../../Atoms/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store";
+import { saveCity } from "../../../Domain/savedData/savedData.reducer";
 
 const MainWeather: React.FC<{
   temperatureOne: number;
@@ -16,6 +20,13 @@ const MainWeather: React.FC<{
   title,
   icon,
 }) => {
+  const dispatch: AppDispatch = useDispatch();
+  const { city: cityState, savedData: savedDataState } = useSelector(
+    (state: RootState) => ({
+      city: state.city,
+      savedData: state.savedData,
+    })
+  );
   return (
     <>
       <div className={styles["today-weather"]}>
@@ -49,6 +60,24 @@ const MainWeather: React.FC<{
           </div>
         </div>
         <div className={styles["describe-weather"]}>{title}</div>
+        <div className={styles["action"]}>
+          {savedDataState.data.filter(
+            (item) => item.name === cityState.city?.name
+          ).length > 0 ? (
+            <Button disabled={true}>Saved!</Button>
+          ) : (
+            <Button
+              onClick={() => {
+                if (cityState.city) {
+                  dispatch(saveCity(cityState.city));
+                }
+              }}
+              disabled={false}
+            >
+              Save!
+            </Button>
+          )}
+        </div>
       </div>
     </>
   );
