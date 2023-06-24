@@ -3,12 +3,14 @@ import styles from "./InputSearch.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store";
 import { getCity } from "../../../Domain/city/city.thunk";
-import { getWeather } from "../../../Domain/weather/weather.thunk";
+import { getForecast, getWeather } from "../../../Domain/weather/weather.thunk";
 
 const InputSearch = () => {
   const dispatch: AppDispatch = useDispatch();
-  const cityState = useSelector((state: RootState) => state.city);
-  const [keyword, setKeyword] = useState("");
+  const { city: cityState } = useSelector((state: RootState) => ({
+    city: state.city,
+  }));
+  const [keyword, setKeyword] = useState("Jakarta");
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -24,8 +26,22 @@ const InputSearch = () => {
       dispatch(
         getWeather({ lat: cityState.city.lat, lng: cityState.city.lng })
       );
+      dispatch(
+        getForecast({
+          lat: cityState.city.lat ?? 0,
+          lng: cityState.city.lng ?? 0,
+        })
+      );
     }
   }, [cityState.city, cityState.loadingCity, dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      getCity({
+        keyword: "Jakarta",
+      })
+    );
+  }, [dispatch]);
 
   return (
     <>

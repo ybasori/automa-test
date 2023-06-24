@@ -12,4 +12,13 @@ export interface IWeather {
   } | null;
   loadingWeather: boolean;
   errorWeather: unknown;
+  forecast:
+    | {
+        title: string;
+        temp_max: number;
+        temp_min: number;
+      }[]
+    | null;
+  loadingForecast: boolean;
+  errorForecast: unknown;
 }

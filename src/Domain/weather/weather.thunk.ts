@@ -24,3 +24,25 @@ export const getWeather = createAsyncThunk(
     }
   }
 );
+
+export const getForecast = createAsyncThunk(
+  "weather/getForecast",
+  async (params: { lat: number; lng: number }, { rejectWithValue }) => {
+    try {
+      const result = await axios.get(
+        `http://api.openweathermap.org/data/2.5/forecast?lat=${params.lat}&lon=${params.lng}&units=metric&APPID=${apiKey}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return result;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return rejectWithValue(err.response);
+      }
+      return rejectWithValue(err);
+    }
+  }
+);
