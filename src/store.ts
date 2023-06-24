@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cityReducer from "./Domain/city/city.reducer";
+import weatherReducer from "./Domain/weather/weather.reducer";
 
 export const store = configureStore({
   reducer: {
     city: cityReducer,
+    weather: weatherReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

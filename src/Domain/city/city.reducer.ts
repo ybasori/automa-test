@@ -3,9 +3,9 @@ import { ICity } from "./city.type";
 import { getCity } from "./city.thunk";
 
 const initialState: ICity = {
-  cities: null,
-  loadingCities: false,
-  errorCities: null,
+  city: null,
+  loadingCity: false,
+  errorCity: null,
 };
 
 export const citySlice = createSlice({
@@ -15,16 +15,16 @@ export const citySlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getCity.pending, (state) => {
-        state.cities = null;
-        state.loadingCities = true;
+        state.city = null;
+        state.loadingCity = true;
       })
       .addCase(getCity.fulfilled, (state, { payload }) => {
-        state.cities = payload.data;
-        state.loadingCities = false;
+        state.city = payload.data.geonames?.[0] ?? null;
+        state.loadingCity = false;
       })
       .addCase(getCity.rejected, (state, { payload }) => {
-        state.errorCities = true;
-        state.loadingCities = false;
+        state.errorCity = true;
+        state.loadingCity = false;
       });
   },
 });

@@ -1,5 +1,5 @@
 export interface ICity {
-  cities: unknown[] | null;
-  loadingCities: boolean;
-  errorCities: unknown;
+  city: { lat: number; lng: number; name: string } | null;
+  loadingCity: boolean;
+  errorCity: unknown;
 }

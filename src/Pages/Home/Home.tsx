@@ -10,61 +10,72 @@ import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 
 const Home: React.FC = () => {
-  const cityState = useSelector((state: RootState) => state.city);
+  const { city: cityState, weather: weatherState } = useSelector(
+    (state: RootState) => ({
+      city: state.city,
+      weather: state.weather,
+    })
+  );
   return (
     <div className={styles["container"]}>
       <InputSearch />
-      {cityState.loadingCities ? (
+      {cityState.loadingCity ? (
         <div className={styles["white-text"]}>...</div>
       ) : (
         <>
-          <div className={styles["main-weather"]}>
-            <MainWeather
-              temperatureOne={12}
-              temperatureTwo={9}
-              temperatureThree={22}
-              temperatureFour={11}
-              title={"Sunny"}
-              icon={<Sun />}
-            />
-          </div>
-          <div className={styles["forecast"]}>
-            <WeatherForecast wind={29} rain={6.33} storm={20} uv={3} />
-          </div>
-          <ListWeather
-            data={[
-              {
-                title: "Monday",
-                icon: <Sun height={50} width={50} />,
-                temperatureOne: 20,
-                temperatureTwo: 11,
-              },
-              {
-                title: "Monday",
-                icon: <Sun height={50} width={50} />,
-                temperatureOne: 20,
-                temperatureTwo: 11,
-              },
-              {
-                title: "Monday",
-                icon: <Sun height={50} width={50} />,
-                temperatureOne: 20,
-                temperatureTwo: 11,
-              },
-              {
-                title: "Monday",
-                icon: <Sun height={50} width={50} />,
-                temperatureOne: 20,
-                temperatureTwo: 11,
-              },
-              {
-                title: "Monday",
-                icon: <Sun height={50} width={50} />,
-                temperatureOne: 20,
-                temperatureTwo: 11,
-              },
-            ]}
-          />
+          {weatherState.weather !== null ? (
+            <>
+              <div className={styles["main-weather"]}>
+                <MainWeather
+                  temperatureOne={weatherState.weather?.main.temp}
+                  temperatureTwo={weatherState.weather?.main.temp_min}
+                  temperatureThree={weatherState.weather?.main.temp_max}
+                  temperatureFour={weatherState.weather?.main.feels_like}
+                  title={weatherState.weather?.weather[0].main}
+                  icon={<Sun />}
+                />
+              </div>
+              <div className={styles["forecast"]}>
+                <WeatherForecast wind={29} rain={6.33} storm={20} uv={3} />
+              </div>
+              <ListWeather
+                data={[
+                  {
+                    title: "Monday",
+                    icon: <Sun height={50} width={50} />,
+                    temperatureOne: 20,
+                    temperatureTwo: 11,
+                  },
+                  {
+                    title: "Monday",
+                    icon: <Sun height={50} width={50} />,
+                    temperatureOne: 20,
+                    temperatureTwo: 11,
+                  },
+                  {
+                    title: "Monday",
+                    icon: <Sun height={50} width={50} />,
+                    temperatureOne: 20,
+                    temperatureTwo: 11,
+                  },
+                  {
+                    title: "Monday",
+                    icon: <Sun height={50} width={50} />,
+                    temperatureOne: 20,
+                    temperatureTwo: 11,
+                  },
+                  {
+                    title: "Monday",
+                    icon: <Sun height={50} width={50} />,
+                    temperatureOne: 20,
+                    temperatureTwo: 11,
+                  },
+                ]}
+              />
+            </>
+          ) : (
+            <></>
+          )}
         </>
       )}
     </div>

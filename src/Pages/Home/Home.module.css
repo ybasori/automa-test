@@ -2,6 +2,9 @@
   background-image: linear-gradient(to right, #15487a, #4a9caa, #a8e4ec);
 
   padding: 60px 36px;
+  min-height: 100vh;
+  height: 100%;
+  box-sizing: border-box;
 }
 .main-weather {
   margin-bottom: 36px;

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./InputSearch.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store";
 import { getCity } from "../../../Domain/city/city.thunk";
+import { getWeather } from "../../../Domain/weather/weather.thunk";
 
 const InputSearch = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -17,6 +18,15 @@ const InputSearch = () => {
       })
     );
   };
+
+  useEffect(() => {
+    if (!cityState.loadingCity && cityState.city !== null) {
+      dispatch(
+        getWeather({ lat: cityState.city.lat, lng: cityState.city.lng })
+      );
+    }
+  }, [cityState.city, cityState.loadingCity, dispatch]);
+
   return (
     <>
       <form className={styles["container"]} onSubmit={onSubmit}>
@@ -28,9 +38,9 @@ const InputSearch = () => {
         <button
           className={styles["btn-submit"]}
           type="submit"
-          disabled={cityState.loadingCities}
+          disabled={cityState.loadingCity}
         >
-          {cityState.loadingCities ? "loading ..." : "Search"}
+          {cityState.loadingCity ? "..." : "Search"}
         </button>
       </form>
     </>
